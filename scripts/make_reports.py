@@ -52,6 +52,32 @@ OUT.mkdir(parents=True, exist_ok=True)
 (OUT / "banker_model.html").write_text(
     build_banker_model(COMPANY, inputs, base, bars, CURRENT_PRICE, waccs, growths, bank=BANK), encoding="utf-8")
 
+index = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>Valuation dashboard</title>
+<style>body{{font:15px/1.55 system-ui,sans-serif;margin:0;padding:32px;background:#fff;color:#1d1d1f}}
+main{{max-width:900px;margin:0 auto}}h1{{font-size:26px;margin:0 0 4px}}.sub{{color:#6e6e73;margin-bottom:20px}}
+.kpis{{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:24px}}
+.kpi{{background:#f5f5f7;border-radius:12px;padding:16px 18px}}.kpi .v{{font-size:24px;font-weight:600}}.kpi .l{{color:#6e6e73;font-size:13px}}
+.links a{{display:block;background:#f5f5f7;border-radius:12px;padding:16px 18px;margin-bottom:12px;color:#0b3d91;text-decoration:none;font-weight:600}}
+.links span{{display:block;color:#6e6e73;font-weight:400;font-size:13px}}
+@media (prefers-color-scheme: dark){{body{{background:#111;color:#f2f2f2}}.kpi,.links a{{background:#1c1c1e}}.sub,.kpi .l,.links span{{color:#9a9aa0}}.links a{{color:#7fb2ff}}}}
+</style></head><body><main>
+<h1>{COMPANY}: valuation dashboard</h1>
+<div class="sub">Illustrative analysis on hypothetical inputs · prepared by {BANK}</div>
+<div class="kpis">
+  <div class="kpi"><div class="v">${base.per_share:,.2f}</div><div class="l">Base-case value per share</div></div>
+  <div class="kpi"><div class="v">${CURRENT_PRICE:,.2f}</div><div class="l">Current share price</div></div>
+  <div class="kpi"><div class="v">{base.per_share / CURRENT_PRICE - 1:+.0%}</div><div class="l">Base case vs. current</div></div>
+  <div class="kpi"><div class="v">{base.terminal_share_of_ev:.0%}</div><div class="l">Value in terminal period</div></div>
+</div>
+<div class="links">
+  <a href="client_summary.html">Client summary<span>Plain-English valuation range and takeaways</span></a>
+  <a href="banker_model.html">Banker model<span>Assumptions, projections, DCF bridge, sensitivity grid</span></a>
+</div>
+<div class="sub">Not investment advice, a fairness opinion, or a recommendation to buy or sell any security.</div>
+</main></body></html>"""
+(OUT / "index.html").write_text(index, encoding="utf-8")
+
 print(f"base per share: {base.per_share:.2f}  EV: {base.enterprise_value:.1f}")
 for b in bars:
     print(f"{b.label:<30} {b.low:8.2f} – {b.high:8.2f}")
