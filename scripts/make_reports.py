@@ -81,3 +81,35 @@ main{{max-width:900px;margin:0 auto}}h1{{font-size:26px;margin:0 0 4px}}.sub{{co
 print(f"base per share: {base.per_share:.2f}  EV: {base.enterprise_value:.1f}")
 for b in bars:
     print(f"{b.label:<30} {b.low:8.2f} – {b.high:8.2f}")
+
+
+# Combined dashboard: client and banker views on one page with tabs.
+import re as _re
+
+_client_doc = (OUT / "client_summary.html").read_text(encoding="utf-8")
+_banker_doc = (OUT / "banker_model.html").read_text(encoding="utf-8")
+
+
+def _main(doc: str) -> str:
+    return _re.search(r"<main>(.*)</main>", doc, _re.S).group(1)
+
+
+_css = _re.search(r"<style>(.*?)</style>", _client_doc, _re.S).group(1)
+combined = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>Investment banking valuation dashboard</title>
+<style>{_css}
+nav.tabs{{display:flex;gap:8px;margin:8px 0 20px}}nav.tabs button{{font:inherit;padding:8px 14px;border-radius:999px;border:1px solid var(--grid);background:var(--card);color:var(--fg);cursor:pointer}}
+nav.tabs button.on{{background:var(--accent);color:#fff;border-color:var(--accent)}}.view{{display:none}}.view.on{{display:block}}
+</style></head><body><main>
+<h1>{COMPANY}: valuation dashboard</h1>
+<div class="sub">Illustrative analysis on hypothetical inputs · prepared by {BANK}</div>
+<nav class="tabs"><button class="on" data-v="client">Client view</button><button data-v="banker">Banker view</button></nav>
+<section class="view on" id="client">{_main(_client_doc)}</section>
+<section class="view" id="banker">{_main(_banker_doc)}</section>
+</main><script>
+document.querySelectorAll('nav.tabs button').forEach(b=>b.onclick=()=>{{
+  document.querySelectorAll('nav.tabs button').forEach(x=>x.classList.toggle('on',x===b));
+  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.id===b.dataset.v));
+}});
+</script></body></html>"""
+(OUT / "dashboard_combined.html").write_text(combined, encoding="utf-8")

@@ -1,0 +1,124 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>Investment banking valuation dashboard</title>
+<style>
+:root{--bg:#fff;--fg:#1d1d1f;--muted:#6e6e73;--card:#f5f5f7;--grid:#d9d9de;--accent:#0b3d91;--pos:#1a7f37;--neg:#c62828}
+@media (prefers-color-scheme: dark){:root{--bg:#111;--fg:#f2f2f2;--muted:#9a9aa0;--card:#1c1c1e;--grid:#333;--accent:#7fb2ff}}
+body{font:15px/1.55 system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--fg);margin:0;padding:32px}
+main{max-width:1040px;margin:0 auto}
+h1{font-size:28px;margin:0 0 4px}h2{font-size:18px;margin:28px 0 10px;color:var(--accent)}
+.sub{color:var(--muted);margin-bottom:20px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0}
+.kpi,.card{background:var(--card);border-radius:12px;padding:16px 18px}
+.kpi .v{font-size:24px;font-weight:600}.kpi .l{color:var(--muted);font-size:13px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:right;padding:7px 9px;border-bottom:1px solid var(--grid)}
+th:first-child,td:first-child{text-align:left}th{color:var(--muted);font-weight:500}
+.note{color:var(--muted);font-size:13px;margin-top:8px}
+.takeaways li{margin-bottom:8px}
+.chart{width:100%;height:auto}.axis{fill:var(--muted);font-size:12px}.lbl{fill:var(--fg);font-size:13px}
+.grid{stroke:var(--grid)}.bar{fill:var(--accent);opacity:.85}.bar.ref{fill:var(--muted)}.now{stroke:var(--neg);stroke-dasharray:4 3;stroke-width:1.5}
+.pill{display:inline-block;padding:2px 9px;border-radius:999px;background:var(--card);border:1px solid var(--grid);font-size:12px;color:var(--muted)}
+.disclaimer{color:var(--muted);font-size:12px;margin-top:28px;border-top:1px solid var(--grid);padding-top:12px}
+
+nav.tabs{display:flex;gap:8px;margin:8px 0 20px}nav.tabs button{font:inherit;padding:8px 14px;border-radius:999px;border:1px solid var(--grid);background:var(--card);color:var(--fg);cursor:pointer}
+nav.tabs button.on{background:var(--accent);color:#fff;border-color:var(--accent)}.view{display:none}.view.on{display:block}
+</style></head><body><main>
+<h1>Example Industrials Inc. (hypothetical): valuation dashboard</h1>
+<div class="sub">Illustrative analysis on hypothetical inputs · prepared by Shubham</div>
+<nav class="tabs"><button class="on" data-v="client">Client view</button><button data-v="banker">Banker view</button></nav>
+<section class="view on" id="client">
+<h1>Example Industrials Inc. (hypothetical): valuation summary</h1>
+<div class="sub">Client view · prepared by Shubham · illustrative analysis</div>
+<div class="kpis">
+  <div class="kpi"><div class="v">$34.81</div><div class="l">Base-case value per share</div></div>
+  <div class="kpi"><div class="v">$38.00</div><div class="l">Current share price</div></div>
+  <div class="kpi"><div class="v">-8%</div><div class="l">Base case vs. current</div></div>
+</div>
+<h2>Valuation range by method</h2>
+<div class="card"><svg viewBox="0 0 900 244" class="chart" xmlns="http://www.w3.org/2000/svg">
+<line x1="230.0" x2="230.0" y1="20" y2="214" class="grid"/>
+<text x="230.0" y="232" class="axis" text-anchor="middle">$25</text>
+<line x1="358.0" x2="358.0" y1="20" y2="214" class="grid"/>
+<text x="358.0" y="232" class="axis" text-anchor="middle">$30</text>
+<line x1="486.0" x2="486.0" y1="20" y2="214" class="grid"/>
+<text x="486.0" y="232" class="axis" text-anchor="middle">$35</text>
+<line x1="614.0" x2="614.0" y1="20" y2="214" class="grid"/>
+<text x="614.0" y="232" class="axis" text-anchor="middle">$40</text>
+<line x1="742.0" x2="742.0" y1="20" y2="214" class="grid"/>
+<text x="742.0" y="232" class="axis" text-anchor="middle">$45</text>
+<line x1="870.0" x2="870.0" y1="20" y2="214" class="grid"/>
+<text x="870.0" y="232" class="axis" text-anchor="middle">$50</text>
+<text x="218" y="48.0" class="lbl" text-anchor="end">DCF: perpetuity growth</text>
+<rect x="301.4" y="30" width="473.5" height="26" rx="4" class="bar"/>
+<text x="295.4" y="47.0" class="axis" text-anchor="end">$28</text>
+<text x="781.0" y="47.0" class="axis">$46</text>
+<text x="218" y="94.0" class="lbl" text-anchor="end">DCF: exit multiple</text>
+<rect x="556.9" y="76" width="187.8" height="26" rx="4" class="bar"/>
+<text x="550.9" y="93.0" class="axis" text-anchor="end">$38</text>
+<text x="750.6" y="93.0" class="axis">$45</text>
+<text x="218" y="140.0" class="lbl" text-anchor="end">Trading comps: EV/EBITDA</text>
+<rect x="450.0" y="122" width="234.4" height="26" rx="4" class="bar"/>
+<text x="444.0" y="139.0" class="axis" text-anchor="end">$34</text>
+<text x="690.4" y="139.0" class="axis">$43</text>
+<text x="218" y="186.0" class="lbl" text-anchor="end">52-week trading range</text>
+<rect x="398.5" y="168" width="328.4" height="26" rx="4" class="bar ref"/>
+<text x="392.5" y="185.0" class="axis" text-anchor="end">$32</text>
+<text x="732.9" y="185.0" class="axis">$44</text>
+<line x1="565.9" x2="565.9" y1="12" y2="214" class="now"/>
+<text x="565.9" y="8" class="axis" text-anchor="middle">Current $38.00</text>
+</svg>
+<div class="note">Bars show per-share value. The dashed line is the current price. Ranges come from sensitivity bands, not point estimates.</div></div>
+<h2>Key takeaways</h2>
+<div class="card"><ul class="takeaways"><li>Our base-case intrinsic value is <b>$34.81 per share</b>, 8% below the current price of $38.00.</li><li>Across methods, the indicative value range is <b>$27.73 to $46.12</b> per share.</li><li>About 75% of the value sits in the long-term outlook, so results depend heavily on margin and growth assumptions.</li><li>The range reflects reasonable variation in discount rate, growth and peer pricing, not a precise target.</li></ul></div>
+<div class="disclaimer">Illustrative analysis built on hypothetical inputs. Not investment advice, a fairness opinion, or a recommendation to buy or sell any security.</div>
+</section>
+<section class="view" id="banker">
+<h1>Example Industrials Inc. (hypothetical): banker model</h1>
+<div class="sub">Internal detail · Shubham · all figures $m except per share</div>
+<h2>Assumptions</h2><div class="card"><table><tr><td>Revenue (last actual)</td><td>$2,400.00m</td></tr><tr><td>Revenue growth, Y1 → Y5</td><td>9.0% → 5.0%</td></tr><tr><td>EBIT margin</td><td>16.0%</td></tr><tr><td>Tax rate</td><td>25.0%</td></tr><tr><td>D&A / capex / NWC (% revenue)</td><td>4.0% / 5.0% / 12.0%</td></tr><tr><td>WACC</td><td>9.00%</td></tr><tr><td>Terminal growth</td><td>2.50%</td></tr><tr><td>Exit multiple (cross-check)</td><td>10.0x EBITDA</td></tr><tr><td>Net debt</td><td>$600.00m</td></tr><tr><td>Diluted shares</td><td>120.0m</td></tr></table></div>
+<h2>Projections and unlevered free cash flow</h2><div class="card"><table><tr><th>$m</th><th>Y1</th><th>Y2</th><th>Y3</th><th>Y4</th><th>Y5</th></tr><tr><td>Revenue</td><td>2,616.0</td><td>2,825.3</td><td>3,023.0</td><td>3,204.4</td><td>3,364.7</td></tr><tr><td>EBITDA</td><td>523.2</td><td>565.1</td><td>604.6</td><td>640.9</td><td>672.9</td></tr><tr><td>EBIT</td><td>418.6</td><td>452.0</td><td>483.7</td><td>512.7</td><td>538.3</td></tr><tr><td>Unlevered FCF</td><td>261.8</td><td>285.7</td><td>308.8</td><td>330.7</td><td>350.9</td></tr></table></div>
+<h2>DCF bridge</h2><div class="card"><table><tr><th>Bridge ($m)</th><th>Value</th></tr><tr><td>PV of unlevered FCF</td><td>1,181.5</td></tr><tr><td>PV of terminal value (perpetuity)</td><td>3,596.2</td></tr><tr><td><b>Enterprise value</b></td><td><b>4,777.7</b></td></tr><tr><td>Less: net debt</td><td>(600.0)</td></tr><tr><td><b>Equity value</b></td><td><b>4,177.7</b></td></tr><tr><td>Value per share</td><td>$34.81</td></tr><tr><td>Exit-multiple cross-check, per share</td><td>$41.29</td></tr><tr><td>Terminal value share of EV</td><td>75%</td></tr></table></div>
+<h2>Sensitivity: value per share, WACC × terminal growth</h2>
+<div class="card"><table><tr><th></th><th>g 1.5%</th><th>g 2.0%</th><th>g 2.5%</th><th>g 3.0%</th><th>g 3.5%</th></tr><tr><td>WACC 8.0%</td><td style="background:color-mix(in srgb, #0b3d91 37%, var(--card))">$36.20</td><td style="background:color-mix(in srgb, #0b3d91 43%, var(--card))">$38.95</td><td style="background:color-mix(in srgb, #0b3d91 50%, var(--card))">$42.21</td><td style="background:color-mix(in srgb, #0b3d91 59%, var(--card))">$46.12</td><td style="background:color-mix(in srgb, #0b3d91 70%, var(--card))">$50.89</td></tr><tr><td>WACC 8.5%</td><td style="background:color-mix(in srgb, #0b3d91 30%, var(--card))">$33.18</td><td style="background:color-mix(in srgb, #0b3d91 35%, var(--card))">$35.50</td><td style="background:color-mix(in srgb, #0b3d91 41%, var(--card))">$38.20</td><td style="background:color-mix(in srgb, #0b3d91 48%, var(--card))">$41.40</td><td style="background:color-mix(in srgb, #0b3d91 57%, var(--card))">$45.23</td></tr><tr><td>WACC 9.0%</td><td style="background:color-mix(in srgb, #0b3d91 24%, var(--card))">$30.56</td><td style="background:color-mix(in srgb, #0b3d91 29%, var(--card))">$32.54</td><td style="background:color-mix(in srgb, #0b3d91 34%, var(--card))">$34.81</td><td style="background:color-mix(in srgb, #0b3d91 40%, var(--card))">$37.47</td><td style="background:color-mix(in srgb, #0b3d91 47%, var(--card))">$40.61</td></tr><tr><td>WACC 9.5%</td><td style="background:color-mix(in srgb, #0b3d91 19%, var(--card))">$28.28</td><td style="background:color-mix(in srgb, #0b3d91 23%, var(--card))">$29.97</td><td style="background:color-mix(in srgb, #0b3d91 27%, var(--card))">$31.91</td><td style="background:color-mix(in srgb, #0b3d91 32%, var(--card))">$34.15</td><td style="background:color-mix(in srgb, #0b3d91 38%, var(--card))">$36.75</td></tr><tr><td>WACC 10.0%</td><td style="background:color-mix(in srgb, #0b3d91 15%, var(--card))">$26.26</td><td style="background:color-mix(in srgb, #0b3d91 18%, var(--card))">$27.73</td><td style="background:color-mix(in srgb, #0b3d91 21%, var(--card))">$29.40</td><td style="background:color-mix(in srgb, #0b3d91 26%, var(--card))">$31.30</td><td style="background:color-mix(in srgb, #0b3d91 31%, var(--card))">$33.49</td></tr></table>
+<div class="note">Darker cells are higher values. Cells with WACC ≤ g are undefined.</div></div>
+<h2>Football field (per share)</h2>
+<div class="card"><svg viewBox="0 0 900 244" class="chart" xmlns="http://www.w3.org/2000/svg">
+<line x1="230.0" x2="230.0" y1="20" y2="214" class="grid"/>
+<text x="230.0" y="232" class="axis" text-anchor="middle">$25</text>
+<line x1="358.0" x2="358.0" y1="20" y2="214" class="grid"/>
+<text x="358.0" y="232" class="axis" text-anchor="middle">$30</text>
+<line x1="486.0" x2="486.0" y1="20" y2="214" class="grid"/>
+<text x="486.0" y="232" class="axis" text-anchor="middle">$35</text>
+<line x1="614.0" x2="614.0" y1="20" y2="214" class="grid"/>
+<text x="614.0" y="232" class="axis" text-anchor="middle">$40</text>
+<line x1="742.0" x2="742.0" y1="20" y2="214" class="grid"/>
+<text x="742.0" y="232" class="axis" text-anchor="middle">$45</text>
+<line x1="870.0" x2="870.0" y1="20" y2="214" class="grid"/>
+<text x="870.0" y="232" class="axis" text-anchor="middle">$50</text>
+<text x="218" y="48.0" class="lbl" text-anchor="end">DCF: perpetuity growth</text>
+<rect x="301.4" y="30" width="473.5" height="26" rx="4" class="bar"/>
+<text x="295.4" y="47.0" class="axis" text-anchor="end">$28</text>
+<text x="781.0" y="47.0" class="axis">$46</text>
+<text x="218" y="94.0" class="lbl" text-anchor="end">DCF: exit multiple</text>
+<rect x="556.9" y="76" width="187.8" height="26" rx="4" class="bar"/>
+<text x="550.9" y="93.0" class="axis" text-anchor="end">$38</text>
+<text x="750.6" y="93.0" class="axis">$45</text>
+<text x="218" y="140.0" class="lbl" text-anchor="end">Trading comps: EV/EBITDA</text>
+<rect x="450.0" y="122" width="234.4" height="26" rx="4" class="bar"/>
+<text x="444.0" y="139.0" class="axis" text-anchor="end">$34</text>
+<text x="690.4" y="139.0" class="axis">$43</text>
+<text x="218" y="186.0" class="lbl" text-anchor="end">52-week trading range</text>
+<rect x="398.5" y="168" width="328.4" height="26" rx="4" class="bar ref"/>
+<text x="392.5" y="185.0" class="axis" text-anchor="end">$32</text>
+<text x="732.9" y="185.0" class="axis">$44</text>
+<line x1="565.9" x2="565.9" y1="12" y2="214" class="now"/>
+<text x="565.9" y="8" class="axis" text-anchor="middle">Current $38.00</text>
+</svg></div>
+<div class="disclaimer">Internal working model on hypothetical inputs. Verify all inputs against filings and market data before any use.</div>
+</section>
+</main><script>
+document.querySelectorAll('nav.tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('nav.tabs button').forEach(x=>x.classList.toggle('on',x===b));
+  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.id===b.dataset.v));
+});
+</script></body></html>
